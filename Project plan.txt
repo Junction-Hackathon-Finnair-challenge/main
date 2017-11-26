@@ -1,0 +1,43 @@
+1. Демо: написать посты в твиттер и наша система будет автоматически парсить их в реалтайме.
+2. Фильтр актуальных рейсов по регионам или авиакомпаниям (показывать риск).
+3. Веб-приложение: основные причины для задержек или отмены рейса.
+4. Поиск по рейсам: показываем события, которые могут на них повлиять.
+
+
+Pipeline:
+    0. Weather info collection.
+    1. Event extraction from Twitter/FB/other, labour unions
+        Output format:
+        
+        class Mention():
+            datetime_happened = None (UTC is expected)
+            datetime_reported = None (UTC is expected)
+            longitude
+            lattitude
+            type
+# Please use standard system: SVO, SCO, TSE
+            airport_id
+            city_name
+            country_name
+            raw_description
+            
+            
+    2. Event matching: geo, time, airport name (save # of tweets to calculate confidence)
+            
+        class Event(Mention):
+            mentions = []
+            def get_confidence():
+                pass
+        
+    3. Flight - event mapping. Get influence. Result: flights with events that could potentially affect it.
+    
+        class Flight():
+            flight_id
+            events = []
+        
+    3.5. Realtime monitoring
+        * Twitter subscription / callback
+    
+    4. Evaluate risk in %.
+    5. Decision advice.
+
